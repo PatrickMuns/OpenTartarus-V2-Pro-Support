@@ -3,12 +3,13 @@ Tartarus V2 Pro Manager
 A Synapse-like tray application for the Razer Tartarus V2 Pro.
 Runs the remap daemon in the background and provides a GUI for configuration.
 
-========================================================
+====================
 WILL NOT WORK WITH ANY VERSION OTHER THAN V2 PRO
-========================================================
-===============================================================================
+====================
+====================
 IMPORTANT — Synapse setup required (do this once on Windows or a Virtual Machine running Windows)
-===============================================================================
+====================
+
 1. Joystick / Analog Stick
    In Razer Synapse, set the analog stick to “Full Analog” (or “Analog” mode).
    Do NOT leave it in Digital / Hat / D-pad mode.
@@ -19,11 +20,12 @@ IMPORTANT — Synapse setup required (do this once on Windows or a Virtual Machi
    Do NOT leave them on Default, Hypershift, Profile Cycle, or No Function.
    Save the profile to the device’s onboard memory.
 
+
 After saving, unplug the Tartarus, wait a few seconds, and plug it back in.
 If you skip these steps the stick will only act as a digital hat and the three
 thumb buttons will not appear in OpenTartarus. The program checks for the
 thumb buttons at startup and will warn you (tray + console) if they are missing.
-===============================================================================
+====================
 """
 
 
