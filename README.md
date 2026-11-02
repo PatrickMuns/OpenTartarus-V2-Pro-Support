@@ -61,7 +61,7 @@ thumb buttons at startup and will warn you (tray + console) if they are missing.
 
 ## Installation
 
-### Option A — Packaged install (recommended)
+### Option A — Packaged install (BROKEN DO NOT USE UNTIL FIXED - INSTALL FROM SOURCE INSTEAD)
 
 Download the package for your distro from the `packaging/` folder, then:
 
