@@ -1,6 +1,6 @@
 #!/bin/bash
-# OpenTartarus Installer
-# https://github.com/Moparmaniac412/OpenTartarus
+# OpenTartarus V2 Pro Installer
+# https://github.com/PatrickMuns/OpenTartarus-V2-Pro-Support
 
 set -e
 
@@ -16,9 +16,9 @@ echo -e "${YELLOW} ██║   ██║██████╔╝█████�
 echo -e "${YELLOW} ██║   ██║██╔═══╝ ██╔══╝  ██║╚██╗██║${NC}"
 echo -e "${YELLOW} ╚██████╔╝██║     ███████╗██║ ╚████║${NC}"
 echo -e "${YELLOW}  ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝${NC}"
-echo -e "${YELLOW}       T A R T A R U S${NC}"
+echo -e "${YELLOW}   T A R T A R U S   V 2   P R O${NC}"
 echo ""
-echo -e "${GREEN}OpenTartarus Installer${NC}"
+echo -e "${GREEN}OpenTartarus V2 Pro Installer${NC}"
 echo "-----------------------------------------------"
 echo ""
 
@@ -40,10 +40,13 @@ echo -e "${YELLOW}[1/6] Installing dependencies...${NC}"
 
 if command -v dnf &> /dev/null; then
     PKG="dnf"
-    sudo dnf install -y python3 python3-pip --skip-unavailable 2>/dev/null || true
+    sudo dnf install -y python3 python3-pip python3-evdev python3-pyqt6 --skip-unavailable 2>/dev/null || true
 elif command -v apt &> /dev/null; then
     PKG="apt"
-    sudo apt install -y python3 python3-pip python3-evdev 2>/dev/null || true
+    sudo apt install -y python3 python3-pip python3-evdev python3-pyqt6 2>/dev/null || true
+elif command -v pacman &> /dev/null; then
+    PKG="pacman"
+    sudo pacman -S --needed --noconfirm python python-pip python-evdev python-pyqt6 2>/dev/null || true
 fi
 
 pip install evdev PyQt6 --break-system-packages 2>/dev/null || \
@@ -62,9 +65,11 @@ if ! python3 -c "from openrazer.client import DeviceManager" 2>/dev/null; then
     elif [ "$PKG" = "apt" ]; then
         sudo add-apt-repository ppa:openrazer/stable -y 2>/dev/null || true
         sudo apt update && sudo apt install -y openrazer-meta 2>/dev/null || true
+    elif [ "$PKG" = "pacman" ]; then
+        echo "  Install openrazer-daemon-git from the AUR for lighting support."
     fi
-    sudo gpasswd -a $USER plugdev
-    echo -e "${GREEN}  ✓ OpenRazer installed${NC}"
+    sudo gpasswd -a $USER plugdev 2>/dev/null || true
+    echo -e "${GREEN}  ✓ OpenRazer install attempted${NC}"
 else
     echo -e "${GREEN}  ✓ OpenRazer already installed${NC}"
 fi
@@ -72,11 +77,9 @@ fi
 # ── Step 3: udev rule ─────────────────────────────────────────
 echo -e "${YELLOW}[3/6] Setting up device permissions...${NC}"
 
-sudo tee $UDEV_RULE > /dev/null << UDEV
-# OpenTartarus - Razer Tartarus Pro
-SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0244", MODE="0660", GROUP="input"
-SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="022b", MODE="0660", GROUP="input"
-SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="022c", MODE="0660", GROUP="input"
+sudo tee $UDEV_RULE > /dev/null << 'UDEV'
+# OpenTartarus - Razer Tartarus V2 Pro
+SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="02eb", MODE="0660", GROUP="input"
 UDEV
 
 sudo udevadm control --reload-rules
@@ -106,7 +109,7 @@ mkdir -p "$AUTOSTART_DIR"
 cat > "$AUTOSTART_DIR/opentartarus.desktop" << DESKTOP
 [Desktop Entry]
 Type=Application
-Name=OpenTartarus
+Name=OpenTartarus V2 Pro
 Exec=python3 /home/$USER/.opentartarus/opentartarus.py
 Hidden=false
 NoDisplay=false
@@ -123,12 +126,12 @@ mkdir -p "/home/$USER/.local/share/applications"
 cat > "/home/$USER/.local/share/applications/opentartarus.desktop" << APPDESKTOP
 [Desktop Entry]
 Type=Application
-Name=OpenTartarus
-Comment=Razer Tartarus Pro Manager for Linux
+Name=OpenTartarus V2 Pro
+Comment=Razer Tartarus V2 Pro Manager for Linux
 Exec=python3 /home/$USER/.opentartarus/opentartarus.py
 Icon=input-gaming
 Categories=Settings;HardwareSettings;
-Keywords=razer;tartarus;keyboard;gaming;
+Keywords=razer;tartarus;keyboard;gaming;v2pro;
 APPDESKTOP
 
 echo -e "${GREEN}  ✓ App menu entry created${NC}"
@@ -136,12 +139,14 @@ echo -e "${GREEN}  ✓ App menu entry created${NC}"
 # ── Done ──────────────────────────────────────────────────────
 echo ""
 echo "-----------------------------------------------"
-echo -e "${GREEN}  OpenTartarus installed successfully!${NC}"
+echo -e "${GREEN}  OpenTartarus V2 Pro installed successfully!${NC}"
 echo "-----------------------------------------------"
 echo ""
 echo "  Run it:       opentartarus"
-echo "  App menu:     Settings > OpenTartarus"
+echo "  App menu:     Settings > OpenTartarus V2 Pro"
 echo ""
 echo -e "${YELLOW}  IMPORTANT: Log out and back in for${NC}"
 echo -e "${YELLOW}  device permissions to take effect.${NC}"
+echo ""
+echo "  Note: This build supports only the Razer Tartarus V2 Pro (1532:02eb)."
 echo ""
