@@ -63,35 +63,42 @@ thumb buttons at startup and will warn you (tray + console) if they are missing.
 
 ### Option A — Packaged install (recommended)
 
-Download the package for your distro from the [`packaging/`](packaging/) folder, then:
+Download the package for your distro from the `packaging/` folder, then:
 
 **Fedora / Nobara (.rpm):**
-```bash
-git clone https://github.com/moparmaniac412/OpenTartarus.git
-cd OpenTartarus
-sudo dnf install ./packaging/opentartarus-0.2.0-1.noarch.rpm
-```
 
-Then add yourself to the `input` group and log out/in:
-```bash
+git clone https://github.com/PatrickMuns/OpenTartarus-V2-Pro-Support.git
+cd OpenTartarus-V2-Pro-Support
+sudo dnf install ./packaging/opentartarus-0.3.0-1.noarch.rpm
+
+Then add yourself to the input group and log out/in:
+
 sudo usermod -aG input $USER
-```
 
-Launch it from your application menu, or run `opentartarus` from a terminal.
+Launch it from your application menu, or run opentartarus from a terminal.
 
 ### Option B — Install script (from source)
 
-```bash
-git clone https://github.com/moparmaniac412/OpenTartarus.git
-cd OpenTartarus
+git clone https://github.com/PatrickMuns/OpenTartarus-V2-Pro-Support.git
+cd OpenTartarus-V2-Pro-Support
 chmod +x install.sh
 ./install.sh
-```
 
-Then **log out and back in** for device permissions to take effect.
+Then log out and back in for device permissions to take effect.
 
 After logging back in, OpenTartarus will start automatically and appear in your system tray as a green circle.
 
+### Arch / Artix (from source)
+
+On Arch or Artix the install script will try to install the Python packages via pacman. If it does not, install them manually first:
+
+sudo pacman -S --needed python python-pip python-evdev python-pyqt6
+
+OpenRazer is optional (lighting only). On Arch/Artix install openrazer-daemon-git from the AUR if you want lighting, then:
+
+sudo gpasswd -a $USER plugdev
+
+After the install script finishes, log out and back in so the input group takes effect. On OpenRC (Artix) there is no systemctl; the daemon is started by the autostart desktop file or by running openrazer-daemon manually.
 ---
 
 ## Usage
