@@ -3,6 +3,9 @@ Tartarus V2 Pro Manager
 A Synapse-like tray application for the Razer Tartarus V2 Pro.
 Runs the remap daemon in the background and provides a GUI for configuration.
 
+========================================================
+WILL NOT WORK WITH ANY VERSION OTHER THAN V2 PRO
+========================================================
 ===============================================================================
 IMPORTANT — Synapse setup required (do this once on Windows or a Virtual Machine running Windows)
 ===============================================================================
