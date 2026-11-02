@@ -1,6 +1,28 @@
-# OpenTartarus
+"""
+Tartarus V2 Pro Manager
+A Synapse-like tray application for the Razer Tartarus V2 Pro.
+Runs the remap daemon in the background and provides a GUI for configuration.
 
-A Synapse-like manager for the Razer Tartarus Pro and Tartarus V2 on Linux. Runs as a system tray app, remaps keys, controls RGB lighting, and manages profiles — no Windows or Razer Synapse required.
+===============================================================================
+IMPORTANT — Synapse setup required (do this once on Windows or a Virtual Machine running Windows)
+===============================================================================
+1. Joystick / Analog Stick
+   In Razer Synapse, set the analog stick to “Full Analog” (or “Analog” mode).
+   Do NOT leave it in Digital / Hat / D-pad mode.
+   Save the profile to the device’s onboard memory.
+
+2. Three Thumb Buttons (Btn1 / Btn2 / Btn3)
+   Set Btn1, Btn2, and Btn3 to the keyboard keys F13, F14, and F15.
+   Do NOT leave them on Default, Hypershift, Profile Cycle, or No Function.
+   Save the profile to the device’s onboard memory.
+
+After saving, unplug the Tartarus, wait a few seconds, and plug it back in.
+If you skip these steps the stick will only act as a digital hat and the three
+thumb buttons will not appear in OpenTartarus. The program checks for the
+thumb buttons at startup and will warn you (tray + console) if they are missing.
+===============================================================================
+"""
+
 
 ![Platform](https://img.shields.io/badge/platform-Linux-blue)
 ![Python](https://img.shields.io/badge/python-3.8+-green)
@@ -10,12 +32,12 @@ A Synapse-like manager for the Razer Tartarus Pro and Tartarus V2 on Linux. Runs
 
 ## Features
 
-- 🎮 Full key remapping for all 20 keys + scroll wheel + extra button
-- 🕹️ Analog stick directional remapping (Up/Down/Left/Right individually)
+- 🎮 Full key remapping for all 27 keys + three thumb buttons + Joystick Button
+- 🕹️ Analog stick directional remapping (Full Analog/4-way/8-way)
 - ⌨️ Keystroke recording — press Record and hit any key or combo
 - 🔀 Modifier key chaining — hold Shift or Ctrl and press another key for combos like `Shift+F1`
 - 🔁 Macro support — chain multiple keypresses in sequence
-- 💡 RGB lighting control (static, breathing, spectrum, wave, reactive, ripple, starlight)
+- 💡 RGB lighting control (static, breathing, spectrum, wave, reactive, ripple, starlight) (BROKEN)
 - 👤 Multiple profiles with instant switching from the system tray
 - 🚀 Launches automatically on login
 - 🖥️ System tray app — runs silently in the background
@@ -25,9 +47,9 @@ A Synapse-like manager for the Razer Tartarus Pro and Tartarus V2 on Linux. Runs
 
 ## Requirements
 
-- Linux (tested on Nobara/Fedora — should work on Ubuntu/Debian)
+- Linux (tested on Nobara/Fedora — should work on Ubuntu/Debian) (Working on Arch/Artix when installed from source)
 - Python 3.8+
-- Razer Tartarus Pro or Tartarus V2
+- Razer Tartarus V2 Pro
 - [OpenRazer](https://openrazer.github.io/) (installed automatically)
 
 ---
@@ -81,12 +103,12 @@ After logging back in, OpenTartarus will start automatically and appear in your 
 5. Click **💾 Save all** when done
 
 ### Analog stick
-Click the **Analog** button to assign each direction (Up/Down/Left/Right) independently. Leave blank to use default arrow keys.
+Click the **Analog** button to assign joystick left/right OR button mapping (4-way/8-way) independently. Leave blank to use as analog/left/right/dpad.
 
 ### Modifier combos (Shift, Ctrl, Alt)
 Assign Shift or Ctrl to a key. When held, any other key pressed will fire as a combo — just like a real keyboard. For example: hold Shift (key 06) + press F1 (key 02) = `Shift+F1`.
 
-### Lighting
+### Lighting (BROKEN)
 1. Go to the **Lighting** tab
 2. Choose an effect, color, and brightness
 3. Click **Apply lighting**
@@ -131,9 +153,7 @@ Some `Ctrl+F` key combos may be intercepted by KDE before reaching your game (e.
 
 | Device | Status |
 |--------|--------|
-| Razer Tartarus Pro | ✅ Fully working |
-| Razer Tartarus V2 | ✅ Fully working |
-| Razer Tartarus (original) | ❓ Untested (likely works) |
+| Razer Tartarus Pro V2 | ✅ Fully working |
 
 ---
 
