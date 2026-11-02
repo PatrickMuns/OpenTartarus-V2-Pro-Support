@@ -1,10 +1,10 @@
 Name:           opentartarus
-Version:        0.2.0
+Version:        0.3.0
 Release:        1%{?dist}
-Summary:        Razer Tartarus Pro/V2 manager for Linux
+Summary:        Razer Tartarus V2 Pro manager for Linux
 
 License:        MIT
-URL:            https://github.com/Moparmaniac412/OpenTartarus
+URL:            https://github.com/PatrickMuns/OpenTartarus-V2-Pro-Support
 Source0:        %{name}-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -15,9 +15,11 @@ Recommends:     openrazer-meta
 
 %description
 OpenTartarus is a Synapse-like tray application for the Razer
-Tartarus Pro and Tartarus V2 keypads. It provides key remapping,
-macro support, RGB lighting control via OpenRazer, and profile
-management, running as a system tray app that launches on login.
+Tartarus V2 Pro keypad. It provides key remapping, macro support,
+RGB lighting control via OpenRazer, analog stick modes, and
+profile management. Runs as a system tray app.
+
+Supports only the Tartarus V2 Pro (USB ID 1532:02eb).
 
 %prep
 %setup -q
@@ -43,20 +45,18 @@ chmod 755 %{buildroot}%{_bindir}/opentartarus
 cat > %{buildroot}%{_datadir}/applications/opentartarus.desktop << 'DESKTOP'
 [Desktop Entry]
 Type=Application
-Name=OpenTartarus
-Comment=Razer Tartarus Pro/V2 manager for Linux
+Name=OpenTartarus V2 Pro
+Comment=Razer Tartarus V2 Pro manager for Linux
 Exec=/usr/bin/opentartarus
 Icon=input-gaming
 Categories=Settings;HardwareSettings;
-Keywords=razer;tartarus;keypad;gaming;remap;
+Keywords=razer;tartarus;keypad;gaming;remap;v2pro;
 Terminal=false
 DESKTOP
 
 cat > %{buildroot}/usr/lib/udev/rules.d/99-opentartarus.rules << 'UDEV'
-# OpenTartarus - Razer Tartarus Pro / V2
-SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="0244", MODE="0660", GROUP="input"
-SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="022b", MODE="0660", GROUP="input"
-SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="022c", MODE="0660", GROUP="input"
+# OpenTartarus - Razer Tartarus V2 Pro
+SUBSYSTEM=="input", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="02eb", MODE="0660", GROUP="input"
 UDEV
 
 %files
@@ -69,7 +69,7 @@ UDEV
 udevadm control --reload-rules >/dev/null 2>&1 || :
 udevadm trigger >/dev/null 2>&1 || :
 echo ""
-echo "OpenTartarus installed."
+echo "OpenTartarus V2 Pro installed."
 echo ""
 echo "IMPORTANT next steps:"
 echo "  1. Add your user to the 'input' group:"
@@ -86,10 +86,13 @@ echo ""
 udevadm control --reload-rules >/dev/null 2>&1 || :
 
 %changelog
+* Sun Nov 02 2025 PatrickMuns <https://github.com/PatrickMuns> - 0.3.0-1
+- Restrict support to Tartarus V2 Pro (1532:02eb)
+- Full analog stick modes and key-binding support
+- Updated device detection and status reporting
 * Fri Jul 04 2025 Moparmaniac412 <https://github.com/Moparmaniac412> - 0.2.0-1
 - Add Tartarus V2 support
-- Dynamic device detection by USB ID (survives reboots/replugs)
+- Dynamic device detection by USB ID
 - Redesigned GUI
-- Modifier key chaining, analog stick directional remapping
 * Sun Jun 01 2025 Moparmaniac412 <https://github.com/Moparmaniac412> - 0.1.0-1
 - Initial release
