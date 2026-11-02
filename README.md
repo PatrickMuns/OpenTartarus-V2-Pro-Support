@@ -148,7 +148,7 @@ python3 ~/.opentartarus/opentartarus.py
 
 If you installed via `.rpm`, update by reinstalling the new package instead:
 ```bash
-sudo dnf install ./packaging/opentartarus-0.2.0-1.noarch.rpm
+sudo dnf install ./packaging/opentartarus-0.3.0-1.noarch.rpm
 ```
 
 ---
@@ -165,7 +165,7 @@ Some `Ctrl+F` key combos may be intercepted by KDE before reaching your game (e.
 
 | Device | Status |
 |--------|--------|
-| Razer Tartarus Pro V2 | ✅ Fully working |
+| Razer Tartarus V2 Pro | ✅ Fully working |
 
 ---
 
